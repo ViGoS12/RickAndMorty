@@ -1,10 +1,10 @@
 import Header from './components/header'
 import axios from 'axios'
-
-import './scss/app.scss'
 import { useEffect, useState } from 'react'
 
-type items = Record<string, string | number>
+import './scss/app.scss'
+
+import CharacterCard from './components/characterCard'
 
 function App() {
   const [items, setItems] = useState<Array<items>>([])
@@ -35,9 +35,11 @@ function App() {
     <div className='app'>
       <div className='app__container'>
         <Header />
-        {items.map((obj) => {
-          return <div key={obj.id}>{obj.name}</div>
-        })}
+        <div className='app__content'>
+          {items.map((obj) => (
+            <CharacterCard key={obj.id} {...obj} />
+          ))}
+        </div>
       </div>
     </div>
   )

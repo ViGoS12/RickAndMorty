@@ -1,0 +1,42 @@
+@import '../../scss/variables.scss';
+
+.characterCard {
+  display: flex;
+  background-color: $personCard;
+  border-radius: 5%;
+
+  &__img {
+    width: 13rem;
+    height: 13rem;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+  }
+
+  &__property {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  &__subtitle {
+    display: flex;
+    gap: 0.5rem;
+
+    align-items: center;
+  }
+
+  &__status {
+    height: 0.5rem;
+    width: 0.5rem;
+    background-color: black;
+    border-radius: 50%;
+  }
+}
