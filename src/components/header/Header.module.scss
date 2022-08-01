@@ -1,0 +1,27 @@
+@import '../../scss/variables.scss';
+
+.header {
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    padding-top: 0.1rem;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid #000;
+  }
+
+  &__list {
+    display: flex;
+    gap: 2rem;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    font-size: 1.5rem;
+  }
+}
