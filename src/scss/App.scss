@@ -1,5 +1,6 @@
 .app {
   background-color: #202329;
+
   height: 100%;
 
   &__container {
@@ -13,7 +14,6 @@
   &__content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(10, 1fr);
     grid-column-gap: 2rem;
     grid-row-gap: 2rem;
   }

@@ -4,6 +4,15 @@
   display: flex;
   background-color: $personCard;
   border-radius: 5%;
+  cursor: pointer;
+
+  &:hover {
+    transition: 0.5s;
+    transform: scale(1.05);
+  }
+  &:not(:hover) {
+    transition: 0.5s;
+  }
 
   &__img {
     width: 13rem;
@@ -12,15 +21,21 @@
     border-bottom-left-radius: 5%;
   }
 
+  &__rightside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
   &__property {
     display: flex;
     flex-direction: column;
-
-    padding: 1rem;
     gap: 1rem;
   }
 
   &__title {
+    font-family: 'Bellefair', serif;
     font-weight: bold;
     font-size: 1.5rem;
     letter-spacing: 2px;
@@ -36,7 +51,9 @@
   &__status {
     height: 0.5rem;
     width: 0.5rem;
-    background-color: black;
     border-radius: 50%;
+  }
+
+  &__btn {
   }
 }

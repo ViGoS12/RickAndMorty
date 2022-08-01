@@ -18,17 +18,20 @@ const CharacterCard: React.FC<items> = ({
   return (
     <div className={styles.characterCard}>
       <img className={styles.characterCard__img} src={image} alt='' />
-      <div className={styles.characterCard__property}>
-        <div className={styles.characterCard__title}>{name}</div>
-        <div className={styles.characterCard__subtitle}>
-          <span
-            style={{ background: statusColor[status] }}
-            className={styles.characterCard__status}
-          />
-          <div>
-            {status} - {species}
+      <div className={styles.characterCard__rightside}>
+        <div className={styles.characterCard__property}>
+          <div className={styles.characterCard__title}>{name}</div>
+          <div className={styles.characterCard__subtitle}>
+            <span
+              style={{ background: statusColor[status] }}
+              className={styles.characterCard__status}
+            />
+            <div>
+              {status} - {species}
+            </div>
           </div>
         </div>
+        <div className={styles.characterCard__btn}>Show more {'->'}</div>
       </div>
     </div>
   )
