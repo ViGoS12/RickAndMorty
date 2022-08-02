@@ -10,7 +10,23 @@ declare module '*.svg' {
 
 type Dispather<S> = Dispatch<SetStateAction<S>>
 
-type items = {
-  [key: string]: string | number
+type Character = {
+  id: number
+  name: string
+  status: string
+  species: string
+  type: string
+  gender: string
+  origin: {
+    name: string
+    url: string
+  }
+  location: {
+    name: string
+    url: string
+  }
   image: string
+  episode: Array<string>
+  url: string
+  created: string
 }
