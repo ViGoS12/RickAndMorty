@@ -17,4 +17,12 @@
     grid-column-gap: 2rem;
     grid-row-gap: 2rem;
   }
+
+  &__endless_scroller {
+    background: #3c3e44;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

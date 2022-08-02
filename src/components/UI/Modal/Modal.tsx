@@ -17,7 +17,10 @@ const Modal: React.FC<IModalProps> = ({
       className={classNames(styles.modal, {
         [styles.modal__active]: active,
       })}
-      onClick={() => setActive(false)}>
+      onClick={() => {
+        setActive(false)
+        pickedCharacter = { ...pickedCharacter }
+      }}>
       <div
         className={classNames(styles.content, {
           [styles.content__active]: active,
