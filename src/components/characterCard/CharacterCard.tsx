@@ -2,12 +2,17 @@ import styles from './CharacterCard.module.scss'
 
 type statusColorProps = { [key: string]: string }
 
-const CharacterCard: React.FC<items> = ({
+type CharacterCardProps = Character & {
+  onClick: (id: number) => void
+}
+
+const CharacterCard: React.FC<CharacterCardProps> = ({
   id,
   name,
   image,
   status,
   species,
+  onClick,
 }) => {
   const statusColor: statusColorProps = {
     Alive: '#55cc44',
@@ -15,8 +20,12 @@ const CharacterCard: React.FC<items> = ({
     unknown: '#9e9e9e',
   }
 
+  const cardClick = () => {
+    onClick(id)
+  }
+
   return (
-    <div className={styles.characterCard}>
+    <div className={styles.characterCard} onClick={cardClick}>
       <img className={styles.characterCard__img} src={image} alt='' />
       <div className={styles.characterCard__rightside}>
         <div className={styles.characterCard__property}>

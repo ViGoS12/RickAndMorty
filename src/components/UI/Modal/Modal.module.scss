@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
 
   opacity: 0;
   pointer-events: none;
@@ -19,22 +18,37 @@
   &__active {
     opacity: 1;
     pointer-events: all;
-    color: black;
+  }
+}
+
+.content {
+  display: flex;
+  width: 50vw;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: $personCard;
+
+  transform: scale(0.5);
+  transition: 0.3s all;
+  &__active {
+    transform: scale(1);
   }
 
-  &__content {
-    width: 50vw;
-    padding: 20px;
-    border-radius: 12px;
-    background-color: white;
-    color: black;
+  &__img {
+    border-radius: 5%;
+  }
 
-    transform: scale(0.5);
-    transition: 0.3s all;
-    color: black;
-    &_active {
-      transform: scale(1);
-      color: black;
-    }
+  &__description {
+    display: flex;
+  }
+
+  &__list {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__item {
   }
 }

@@ -8,9 +8,16 @@ import CharacterCard from './components/characterCard'
 import Modal from './components/UI/Modal'
 
 function App() {
-  const [modalActive, setModalActive] = useState(false)
-  const [items, setItems] = useState<Array<items>>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [modalActive, setModalActive] = useState(false)
+  const [characters, setCharacters] = useState<Array<Character>>([])
+  const [character, setCharacter] = useState<Character>()
+
+  const showMore = (id: number) => {
+    setCharacter(
+      characters.filter((character: Character) => character.id === id)[0]
+    )
+  }
 
   const fetchItems = async () => {
     setIsLoading(true)
@@ -19,7 +26,7 @@ function App() {
         `https://rickandmortyapi.com/api/character`
       )
       const { results = [] } = data
-      setItems(results)
+      setCharacters(results)
     } catch (error) {
       console.log('error', error)
     } finally {
@@ -27,7 +34,7 @@ function App() {
     }
   }
 
-  console.log(items)
+  // console.log(characters)
 
   useEffect(() => {
     fetchItems()
@@ -38,13 +45,17 @@ function App() {
       <div className='app__container'>
         <Header />
         <div className='app__content' onClick={() => setModalActive(true)}>
-          {items.map((obj) => (
-            <CharacterCard key={obj.id} {...obj} />
+          {characters.map((obj) => (
+            <CharacterCard key={obj.id} {...obj} onClick={showMore} />
           ))}
         </div>
-        <Modal active={modalActive} setActive={setModalActive}>
-          {<p style={{ color: 'black' }}>Modal</p>}
-        </Modal>
+        {character && (
+          <Modal
+            active={modalActive}
+            setActive={setModalActive}
+            pickedCharacter={character}
+          />
+        )}
       </div>
     </div>
   )
