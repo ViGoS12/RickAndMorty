@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react'
 import './scss/app.scss'
 
 import CharacterCard from './components/characterCard'
+import Modal from './components/UI/Modal'
 
 function App() {
+  const [modalActive, setModalActive] = useState(false)
   const [items, setItems] = useState<Array<items>>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,11 +37,14 @@ function App() {
     <div className='app'>
       <div className='app__container'>
         <Header />
-        <div className='app__content'>
+        <div className='app__content' onClick={() => setModalActive(true)}>
           {items.map((obj) => (
             <CharacterCard key={obj.id} {...obj} />
           ))}
         </div>
+        <Modal active={modalActive} setActive={setModalActive}>
+          {<p style={{ color: 'black' }}>Modal</p>}
+        </Modal>
       </div>
     </div>
   )

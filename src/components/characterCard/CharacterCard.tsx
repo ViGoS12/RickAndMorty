@@ -1,5 +1,7 @@
 import styles from './CharacterCard.module.scss'
 
+type statusColorProps = { [key: string]: string }
+
 const CharacterCard: React.FC<items> = ({
   id,
   name,
@@ -7,8 +9,6 @@ const CharacterCard: React.FC<items> = ({
   status,
   species,
 }) => {
-  type statusColorProps = { [key: string]: string }
-
   const statusColor: statusColorProps = {
     Alive: '#55cc44',
     Dead: '#d63d2e',

@@ -8,6 +8,8 @@ declare module '*.svg' {
   export default content
 }
 
+type Dispather<S> = Dispatch<SetStateAction<S>>
+
 type items = {
   [key: string]: string | number
   image: string
