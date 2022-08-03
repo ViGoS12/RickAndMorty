@@ -59,7 +59,7 @@ function App() {
     <div className='app'>
       <div className='app__container'>
         <Header />
-        {isLoading ? (
+        {/* {isLoading ? (
           <div className='app__loading'>
             <ReactLoading
               type='bubbles'
@@ -68,28 +68,33 @@ function App() {
               width={'5%'}
             />
           </div>
-        ) : (
-          <div className='app__content' onClick={() => setModalActive(true)}>
-            {characters.map((obj) => (
-              <CharacterCard key={obj.id} {...obj} onClick={showMore} />
-            ))}
+        ) : ( */}
+        <div className='app__content' onClick={() => setModalActive(true)}>
+          {characters.map((obj) => (
+            <CharacterCard key={obj.id} {...obj} onClick={showMore} />
+          ))}
+        </div>
+        {/* )} */}
+        {page < totalPage && (
+          <div className='app__endless_scroller' ref={lastElement}>
+            Show more
+            <ReactLoading
+              type='cylon'
+              color='white'
+              height='30px'
+              width='30px'
+            />
           </div>
         )}
-      </div>
-      {page < totalPage && (
-        <div className='app__endless_scroller' ref={lastElement}>
-          Show more
-          <ReactLoading type='cylon' color='white' height='30px' width='30px' />
-        </div>
-      )}
 
-      {character && (
-        <Modal
-          active={modalActive}
-          setActive={setModalActive}
-          pickedCharacter={character}
-        />
-      )}
+        {character && (
+          <Modal
+            active={modalActive}
+            setActive={setModalActive}
+            pickedCharacter={character}
+          />
+        )}
+      </div>
     </div>
   )
 }
