@@ -7,6 +7,7 @@ import './scss/app.scss'
 import CharacterCard from './components/characterCard'
 import Modal from './components/UI/Modal'
 import useObserver from './hooks/useObserver'
+import ReactLoading from 'react-loading'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -25,7 +26,7 @@ function App() {
     )
   }
 
-  const fetchItems = async () => {
+  const fetchCharacters = async () => {
     setIsLoading(true)
     try {
       const { data } = await axios.get(
@@ -51,29 +52,44 @@ function App() {
   })
 
   useEffect(() => {
-    fetchItems()
+    fetchCharacters()
   }, [page])
 
   return (
     <div className='app'>
       <div className='app__container'>
         <Header />
-        <div className='app__content' onClick={() => setModalActive(true)}>
-          {characters.map((obj) => (
-            <CharacterCard key={obj.id} {...obj} onClick={showMore} />
-          ))}
-        </div>
-        <div className='app__endless_scroller' ref={lastElement}>
-          Show more characters
-        </div>
-        {character && (
-          <Modal
-            active={modalActive}
-            setActive={setModalActive}
-            pickedCharacter={character}
-          />
+        {isLoading ? (
+          <div className='app__loading'>
+            <ReactLoading
+              type='bubbles'
+              color='white'
+              height={'5%'}
+              width={'5%'}
+            />
+          </div>
+        ) : (
+          <div className='app__content' onClick={() => setModalActive(true)}>
+            {characters.map((obj) => (
+              <CharacterCard key={obj.id} {...obj} onClick={showMore} />
+            ))}
+          </div>
         )}
       </div>
+      {page < totalPage && (
+        <div className='app__endless_scroller' ref={lastElement}>
+          Show more
+          <ReactLoading type='cylon' color='white' height='30px' width='30px' />
+        </div>
+      )}
+
+      {character && (
+        <Modal
+          active={modalActive}
+          setActive={setModalActive}
+          pickedCharacter={character}
+        />
+      )}
     </div>
   )
 }

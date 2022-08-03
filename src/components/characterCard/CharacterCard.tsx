@@ -1,4 +1,5 @@
 import styles from './CharacterCard.module.scss'
+import { memo } from 'react'
 
 type statusColorProps = { [key: string]: string }
 
@@ -46,4 +47,4 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
   )
 }
 
-export default CharacterCard
+export default memo(CharacterCard)

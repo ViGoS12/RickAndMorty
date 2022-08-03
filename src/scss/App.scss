@@ -12,6 +12,7 @@
   }
 
   &__content {
+    background-color: #202329;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 2rem;
@@ -20,9 +21,17 @@
 
   &__endless_scroller {
     background: #3c3e44;
-    height: 1.5rem;
+
+    height: 3rem;
     display: flex;
+    gap: 1rem;
+
     justify-content: center;
     align-items: center;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
   }
 }
