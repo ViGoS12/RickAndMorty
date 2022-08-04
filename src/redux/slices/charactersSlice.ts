@@ -3,7 +3,7 @@ import axios from 'axios'
 
 interface ICharacterState {
   characters: Character[]
-  status: 'loading' | 'success' | 'error'
+  loadingStatus: 'loading' | 'success' | 'error'
 }
 
 export const fetchCharacters = createAsyncThunk<Character[], Filter>(
@@ -24,6 +24,7 @@ export const fetchCharacters = createAsyncThunk<Character[], Filter>(
         },
       }
     )
+    console.log(data)
     const { results } = data
     return results
   }
@@ -31,7 +32,7 @@ export const fetchCharacters = createAsyncThunk<Character[], Filter>(
 
 const initialState: ICharacterState = {
   characters: [],
-  status: 'loading',
+  loadingStatus: 'loading',
 }
 
 export const charactersSlice = createSlice({
@@ -48,15 +49,15 @@ export const charactersSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchCharacters.pending, (state, action) => {
-      state.status = 'loading'
+      state.loadingStatus = 'loading'
       state.characters = []
     })
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
-      state.status = 'success'
+      state.loadingStatus = 'success'
       state.characters = action.payload
     })
     builder.addCase(fetchCharacters.rejected, (state, action) => {
-      state.status = 'error'
+      state.loadingStatus = 'error'
       state.characters = []
     })
   },

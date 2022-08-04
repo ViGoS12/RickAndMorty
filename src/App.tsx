@@ -1,25 +1,30 @@
 import Header from './components/header'
-import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
 
 import './scss/app.scss'
 
+import { useEffect, useRef, useState } from 'react'
+
 import CharacterCard from './components/characterCard'
+import Skeleton from './components/characterCard/Skeleton'
 import Modal from './components/UI/Modal'
-import useObserver from './hooks/useObserver'
-import ReactLoading from 'react-loading'
 import Filter from './components/filter/index'
+
+import useObserver from './hooks/useObserver'
+
+import ReactLoading from 'react-loading'
+
 import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
 import { fetchCharacters, setCharacters } from './redux/slices/charactersSlice'
 
 function App() {
   const dispatch = useAppDispatch()
-  const { characters } = useSelector((state: RootState) => state.characters)
+  const { characters, loadingStatus } = useSelector(
+    (state: RootState) => state.characters
+  )
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
   const { name } = useSelector((state: RootState) => state.filter)
 
-  const [isLoading, setIsLoading] = useState(true)
   const [modalActive, setModalActive] = useState(false)
 
   const [character, setCharacter] = useState<Character>()
@@ -27,7 +32,7 @@ function App() {
   const lastElement: React.RefObject<any> = useRef()
 
   const [page, setPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(42)
 
   const showMore = (id: number) => {
     setCharacter(
@@ -35,15 +40,22 @@ function App() {
     )
   }
 
+  console.log(loadingStatus)
+
   const getCharacters = async () => {
     dispatch(fetchCharacters({ page, name, status }))
 
     // setTotalPage(data.info.pages)
   }
 
-  useObserver(lastElement, page < totalPage, isLoading, () => {
-    setPage(page + 1)
-  })
+  useObserver(
+    lastElement,
+    page < totalPage,
+    loadingStatus === 'success' ? false : true,
+    () => {
+      setPage(page + 1)
+    }
+  )
 
   useEffect(() => {
     getCharacters()
@@ -65,11 +77,13 @@ function App() {
           </div>
         ) : ( */}
         <div className='app__content'>
-          {characters.map((obj) => (
-            <div key={obj.id} onClick={() => setModalActive(true)}>
-              <CharacterCard {...obj} onClick={showMore} />
-            </div>
-          ))}
+          {loadingStatus === 'loading'
+            ? [...new Array(9)].map((_, i) => <Skeleton key={i} />)
+            : characters.map((obj) => (
+                <div key={obj.id} onClick={() => setModalActive(true)}>
+                  <CharacterCard {...obj} onClick={showMore} />
+                </div>
+              ))}
         </div>
         {/* )} */}
         {page < totalPage && (
