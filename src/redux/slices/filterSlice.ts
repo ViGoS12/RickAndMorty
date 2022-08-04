@@ -1,23 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface CounterState {
-  value: number
+interface IFilterState {
+  lifeStatus: string
 }
 
-const initialState: CounterState = {
-  value: 0,
+const initialState: IFilterState = {
+  lifeStatus: '',
 }
 
 export const filterSlice = createSlice({
-  name: 'filter',
+  name: 'filters',
   initialState,
   reducers: {
-    // increment: (state: any) => {
-    //   state.value += 1
-    // },
+    setLifeStatus(state: IFilterState, action: PayloadAction<string>) {
+      state.lifeStatus = action.payload
+    },
   },
 })
 
-// export const { increment } = filterSlice.actions
+export const { setLifeStatus } = filterSlice.actions
 
 export default filterSlice.reducer

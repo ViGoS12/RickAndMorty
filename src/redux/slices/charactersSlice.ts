@@ -1,23 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-export interface CounterState {
-  value: number
+interface ICharacterState {
+  characters: Array<Character>
+  status: string
 }
 
-const initialState: CounterState = {
-  value: 0,
+// export const fetchCharacters = createAsyncThunk(
+//   'character/fetchCharactersStatus',
+//   async (params) => {
+//     const { page } = params
+//     const { data } = await axios.get(
+//       `https://rickandmortyapi.com/api/character`,
+//       {
+//         params: {
+//           page,
+//         },
+//       }
+//     )
+//     return data
+//   }
+// )
+
+const initialState: ICharacterState = {
+  characters: [],
+  status: 'loading',
 }
 
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {
-    // increment: (state: any) => {
-    //   state.value += 1
-    // },
+    setCharacters(
+      state: ICharacterState,
+      action: PayloadAction<Array<Character>>
+    ) {
+      state.characters = action.payload
+    },
   },
 })
 
-// export const { increment } = charactersSlice.actions
+export const { setCharacters } = charactersSlice.actions
 
 export default charactersSlice.reducer

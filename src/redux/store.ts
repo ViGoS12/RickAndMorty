@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import characters from './slices/filterSlice'
+import character from './slices/charactersSlice'
 import filter from './slices/filterSlice'
 
 export const store = configureStore({
   reducer: {
-    characters,
+    character,
     filter,
   },
 })

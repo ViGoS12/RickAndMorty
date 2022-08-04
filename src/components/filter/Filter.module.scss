@@ -1,0 +1,33 @@
+@import '../../scss/variables.scss';
+
+.filter {
+  border: 1px solid $personCard;
+
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__btn {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    padding: 0.2rem;
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

@@ -8,11 +8,19 @@ import CharacterCard from './components/characterCard'
 import Modal from './components/UI/Modal'
 import useObserver from './hooks/useObserver'
 import ReactLoading from 'react-loading'
+import Filter from './components/filter/index'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from './redux/store'
+import { setCharacters } from './redux/slices/charactersSlice'
 
 function App() {
+  const dispatch = useDispatch()
+  const { characters } = useSelector((state: RootState) => state.character)
+  const status = useSelector((state: RootState) => state.filter.lifeStatus)
+
   const [isLoading, setIsLoading] = useState(true)
   const [modalActive, setModalActive] = useState(false)
-  const [characters, setCharacters] = useState<Array<Character>>([])
+
   const [character, setCharacter] = useState<Character>()
 
   const lastElement: React.RefObject<any> = useRef()
@@ -26,6 +34,8 @@ function App() {
     )
   }
 
+  console.log(status)
+
   const fetchCharacters = async () => {
     setIsLoading(true)
     try {
@@ -34,11 +44,14 @@ function App() {
         {
           params: {
             page,
+            status,
           },
         }
       )
       const { results = [] } = data
-      setCharacters([...characters, ...results])
+
+      dispatch(setCharacters([...results]))
+      console.log(data)
       setTotalPage(data.info.pages)
     } catch (error) {
       console.log('error', error)
@@ -47,18 +60,21 @@ function App() {
     }
   }
 
+  console.log(characters)
+
   useObserver(lastElement, page < totalPage, isLoading, () => {
     setPage(page + 1)
   })
 
   useEffect(() => {
     fetchCharacters()
-  }, [page])
+  }, [status])
 
   return (
     <div className='app'>
       <div className='app__container'>
         <Header />
+        <Filter />
         {/* {isLoading ? (
           <div className='app__loading'>
             <ReactLoading
@@ -69,9 +85,11 @@ function App() {
             />
           </div>
         ) : ( */}
-        <div className='app__content' onClick={() => setModalActive(true)}>
+        <div className='app__content'>
           {characters.map((obj) => (
-            <CharacterCard key={obj.id} {...obj} onClick={showMore} />
+            <div key={obj.id} onClick={() => setModalActive(true)}>
+              <CharacterCard {...obj} onClick={showMore} />
+            </div>
           ))}
         </div>
         {/* )} */}
