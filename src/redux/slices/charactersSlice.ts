@@ -2,25 +2,32 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 interface ICharacterState {
-  characters: Array<Character>
-  status: string
+  characters: Character[]
+  status: 'loading' | 'success' | 'error'
 }
 
-// export const fetchCharacters = createAsyncThunk(
-//   'character/fetchCharactersStatus',
-//   async (params) => {
-//     const { page } = params
-//     const { data } = await axios.get(
-//       `https://rickandmortyapi.com/api/character`,
-//       {
-//         params: {
-//           page,
-//         },
-//       }
-//     )
-//     return data
-//   }
-// )
+export const fetchCharacters = createAsyncThunk<Character[], Filter>(
+  'character/fetchCharactersStatus',
+  async (params) => {
+    // const { page, name, status, species, type, gender } = params
+    const { page, name, status } = params
+    const { data } = await axios.get(
+      `https://rickandmortyapi.com/api/character`,
+      {
+        params: {
+          page,
+          name,
+          status,
+          // species,
+          // type,
+          // gender,
+        },
+      }
+    )
+    const { results } = data
+    return results
+  }
+)
 
 const initialState: ICharacterState = {
   characters: [],
@@ -37,6 +44,21 @@ export const charactersSlice = createSlice({
     ) {
       state.characters = action.payload
     },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchCharacters.pending, (state, action) => {
+      state.status = 'loading'
+      state.characters = []
+    })
+    builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+      state.status = 'success'
+      state.characters = action.payload
+    })
+    builder.addCase(fetchCharacters.rejected, (state, action) => {
+      state.status = 'error'
+      state.characters = []
+    })
   },
 })
 

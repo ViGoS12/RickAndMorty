@@ -30,3 +30,12 @@ type Character = {
   url: string
   created: string
 }
+
+type Filter = {
+  page: number
+  name: string
+  status: string
+  // species: string
+  // type: string
+  // gender: string
+}

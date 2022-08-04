@@ -9,14 +9,15 @@ import Modal from './components/UI/Modal'
 import useObserver from './hooks/useObserver'
 import ReactLoading from 'react-loading'
 import Filter from './components/filter/index'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from './redux/store'
-import { setCharacters } from './redux/slices/charactersSlice'
+import { useSelector } from 'react-redux'
+import { useAppDispatch, RootState } from './redux/store'
+import { fetchCharacters, setCharacters } from './redux/slices/charactersSlice'
 
 function App() {
-  const dispatch = useDispatch()
-  const { characters } = useSelector((state: RootState) => state.character)
+  const dispatch = useAppDispatch()
+  const { characters } = useSelector((state: RootState) => state.characters)
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
+  const { name } = useSelector((state: RootState) => state.filter)
 
   const [isLoading, setIsLoading] = useState(true)
   const [modalActive, setModalActive] = useState(false)
@@ -34,41 +35,19 @@ function App() {
     )
   }
 
-  console.log(status)
+  const getCharacters = async () => {
+    dispatch(fetchCharacters({ page, name, status }))
 
-  const fetchCharacters = async () => {
-    setIsLoading(true)
-    try {
-      const { data } = await axios.get(
-        `https://rickandmortyapi.com/api/character`,
-        {
-          params: {
-            page,
-            status,
-          },
-        }
-      )
-      const { results = [] } = data
-
-      dispatch(setCharacters([...results]))
-      console.log(data)
-      setTotalPage(data.info.pages)
-    } catch (error) {
-      console.log('error', error)
-    } finally {
-      setIsLoading(false)
-    }
+    // setTotalPage(data.info.pages)
   }
-
-  console.log(characters)
 
   useObserver(lastElement, page < totalPage, isLoading, () => {
     setPage(page + 1)
   })
 
   useEffect(() => {
-    fetchCharacters()
-  }, [status])
+    getCharacters()
+  }, [name, status])
 
   return (
     <div className='app'>

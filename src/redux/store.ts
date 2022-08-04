@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import character from './slices/charactersSlice'
+import characters from './slices/charactersSlice'
 import filter from './slices/filterSlice'
+import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
   reducer: {
-    character,
+    characters,
     filter,
   },
 })
 
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
