@@ -15,8 +15,8 @@ interface IOption {
 
 const statusOptions: IOption[] = [
   { value: '', label: 'None' },
-  { value: 'alive', label: 'Alive' },
-  { value: 'dead', label: 'Dead' },
+  { value: 'Alive', label: 'Alive' },
+  { value: 'Dead', label: 'Dead' },
   { value: 'unknown', label: 'Unknown' },
 ]
 

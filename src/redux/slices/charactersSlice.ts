@@ -3,7 +3,33 @@ import axios from 'axios'
 
 interface ICharacterState {
   characters: Character[]
+  character: Character
   loadingStatus: 'loading' | 'success' | 'error'
+}
+
+const initialState: ICharacterState = {
+  characters: [],
+  character: {
+    id: 1,
+    name: '',
+    status: '',
+    species: '',
+    type: '',
+    gender: '',
+    origin: {
+      name: '',
+      url: '',
+    },
+    location: {
+      name: '',
+      url: '',
+    },
+    image: '',
+    episode: [''],
+    url: '',
+    created: '',
+  },
+  loadingStatus: 'loading',
 }
 
 export const fetchCharacters = createAsyncThunk<Character[], Filter>(
@@ -30,11 +56,6 @@ export const fetchCharacters = createAsyncThunk<Character[], Filter>(
   }
 )
 
-const initialState: ICharacterState = {
-  characters: [],
-  loadingStatus: 'loading',
-}
-
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState,
@@ -44,6 +65,11 @@ export const charactersSlice = createSlice({
       action: PayloadAction<Array<Character>>
     ) {
       state.characters = action.payload
+    },
+    setCharacter(state: ICharacterState, action: PayloadAction<number>) {
+      state.character = state.characters.filter(
+        (character: Character) => character.id === action.payload
+      )[0]
     },
   },
 
@@ -63,6 +89,6 @@ export const charactersSlice = createSlice({
   },
 })
 
-export const { setCharacters } = charactersSlice.actions
+export const { setCharacters, setCharacter } = charactersSlice.actions
 
 export default charactersSlice.reducer

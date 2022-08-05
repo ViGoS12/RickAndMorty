@@ -15,11 +15,16 @@ import ReactLoading from 'react-loading'
 
 import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
-import { fetchCharacters, setCharacters } from './redux/slices/charactersSlice'
+import {
+  fetchCharacters,
+  setCharacter,
+  setCharacters,
+} from './redux/slices/charactersSlice'
+import NoData from './pages/NoData'
 
 function App() {
   const dispatch = useAppDispatch()
-  const { characters, loadingStatus } = useSelector(
+  const { characters, loadingStatus, character } = useSelector(
     (state: RootState) => state.characters
   )
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
@@ -27,17 +32,13 @@ function App() {
 
   const [modalActive, setModalActive] = useState(false)
 
-  const [character, setCharacter] = useState<Character>()
-
   const lastElement: React.RefObject<any> = useRef()
 
   const [page, setPage] = useState(1)
   const [totalPage, setTotalPage] = useState(42)
 
   const showMore = (id: number) => {
-    setCharacter(
-      characters.filter((character: Character) => character.id === id)[0]
-    )
+    dispatch(setCharacter(id))
   }
 
   console.log(loadingStatus)
@@ -48,14 +49,14 @@ function App() {
     // setTotalPage(data.info.pages)
   }
 
-  useObserver(
-    lastElement,
-    page < totalPage,
-    loadingStatus === 'success' ? false : true,
-    () => {
-      setPage(page + 1)
-    }
-  )
+  // useObserver(
+  //   lastElement,
+  //   page < totalPage,
+  //   loadingStatus === 'success' ? false : true,
+  //   () => {
+  //     setPage(page + 1)
+  //   }
+  // )
 
   useEffect(() => {
     getCharacters()
@@ -76,15 +77,21 @@ function App() {
             />
           </div>
         ) : ( */}
-        <div className='app__content'>
-          {loadingStatus === 'loading'
-            ? [...new Array(9)].map((_, i) => <Skeleton key={i} />)
-            : characters.map((obj) => (
-                <div key={obj.id} onClick={() => setModalActive(true)}>
-                  <CharacterCard {...obj} onClick={showMore} />
-                </div>
-              ))}
-        </div>
+        {loadingStatus === 'error' ? (
+          <NoData />
+        ) : (
+          <>
+            <div className='app__content'>
+              {loadingStatus === 'loading'
+                ? [...new Array(9)].map((_, i) => <Skeleton key={i} />)
+                : characters.map((obj) => (
+                    <div key={obj.id} onClick={() => setModalActive(true)}>
+                      <CharacterCard {...obj} onClick={showMore} />
+                    </div>
+                  ))}
+            </div>
+          </>
+        )}
         {/* )} */}
         {page < totalPage && (
           <div className='app__endless_scroller' ref={lastElement}>

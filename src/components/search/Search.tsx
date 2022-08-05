@@ -2,26 +2,28 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './Search.module.scss'
 import ClearIcon from '../../assets/svg/clearButton.svg'
 import useDebounce from './../../hooks/useDebounce'
-import { useDispatch } from 'react-redux'
-import { setName } from '../../redux/slices/filterSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { setName, setSearchValue } from '../../redux/slices/filterSlice'
+import { RootState } from '../../redux/store'
 
 const Search: React.FC = () => {
-  const [value, setValue] = useState('')
-  const inputRef = useRef<HTMLInputElement>(null)
-  const debouncedValue = useDebounce<string>(value, 500)
   const dispatch = useDispatch()
+  const { searchValue } = useSelector((state: RootState) => state.filter)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const debouncedValue = useDebounce<string>(searchValue, 500)
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+    dispatch(setSearchValue(event.target.value))
   }
 
   const onClickClear = () => {
-    setValue('')
+    dispatch(setSearchValue(''))
     inputRef.current?.focus()
   }
 
   useEffect(() => {
-    dispatch(setName(value))
+    dispatch(setName(searchValue))
   }, [debouncedValue])
 
   return (
@@ -29,14 +31,14 @@ const Search: React.FC = () => {
       <div className={styles.search__wrapper}>
         <input
           ref={inputRef}
-          value={value}
+          value={searchValue}
           onChange={onChangeInput}
           type='text'
           placeholder='Name search...'
           className={styles.search__input}
         />
 
-        {value && (
+        {searchValue && (
           <img
             className={styles.search__img}
             src={ClearIcon}
