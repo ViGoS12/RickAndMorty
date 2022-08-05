@@ -35,7 +35,12 @@ type Filter = {
   page: number
   name: string
   status: string
-  // species: string
+  species: string
   // type: string
-  // gender: string
+  gender: string
+}
+
+type IOption = {
+  value: string
+  label: string
 }

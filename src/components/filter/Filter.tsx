@@ -1,41 +1,21 @@
 import styles from './Filter.module.scss'
-import './select.scss'
 
 import ResetIcon from '../../assets/svg/resetFilter.svg'
 
-import Select, { OnChangeValue } from 'react-select'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { setLifeStatus } from '../../redux/slices/filterSlice'
+import { useDispatch } from 'react-redux'
 
-interface IOption {
-  value: string
-  label: string
-}
-
-const statusOptions: IOption[] = [
-  { value: '', label: 'None' },
-  { value: 'Alive', label: 'Alive' },
-  { value: 'Dead', label: 'Dead' },
-  { value: 'unknown', label: 'Unknown' },
-]
+import { reset, setFilter } from '../../redux/slices/filterSlice'
+import MySelect from './../UI/Select/'
+import { LIFESTATUS, GENDER, SPECIES } from '../../constants'
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch()
-  const { lifeStatus } = useSelector((state: RootState) => state.filter)
-
-  const getValue = () => {
-    return lifeStatus
-      ? statusOptions.find((v) => v.value === lifeStatus)
-      : 'none'
-  }
-
-  const onChange = (newValue: OnChangeValue<any, boolean>) => {
-    dispatch(setLifeStatus(newValue?.value))
-  }
 
   const resetFilters = () => {
-    dispatch(setLifeStatus(''))
+    dispatch(reset())
+  }
+  const onChange = (filter: string, value: string) => {
+    dispatch(setFilter({ filter, value }))
   }
 
   return (
@@ -51,14 +31,15 @@ const Filter: React.FC = () => {
       </div>
       <div className={styles.filter__content}>
         Status:
-        <Select
-          classNamePrefix='select'
+        <MySelect
+          options={LIFESTATUS}
+          filter='lifeStatus'
           onChange={onChange}
-          value={getValue()}
-          options={statusOptions}
-          placeholder='Choose status...'
-          isSearchable={false}
         />
+        Gender:
+        <MySelect options={GENDER} filter='gender' onChange={onChange} />
+        Species:
+        <MySelect options={SPECIES} filter='species' onChange={onChange} />
       </div>
     </div>
   )

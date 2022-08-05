@@ -1,35 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IFilterState {
-  name: string
-  lifeStatus: string
-  searchValue: string
+  [key: string]: string
 }
 
 const initialState: IFilterState = {
-  name: '',
   lifeStatus: '',
-  searchValue: '',
+  gender: '',
+  species: '',
 }
 
 export const filterSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setName(state: IFilterState, action: PayloadAction<string>) {
-      state.name = action.payload
-    },
-    setLifeStatus(state: IFilterState, action: PayloadAction<string>) {
-      state.lifeStatus = action.payload
-    },
-    setSearchValue(state: IFilterState, action: PayloadAction<string>) {
-      state.searchValue = action.payload
+    setFilter(
+      state: IFilterState,
+      action: PayloadAction<{ filter: string; value: string }>
+    ) {
+      state[action.payload.filter] = action.payload.value
     },
 
-    // reset: () => initialState,
+    reset: (state: IFilterState) => (state = initialState),
   },
 })
 
-export const { setName, setLifeStatus, setSearchValue } = filterSlice.actions
+export const { setFilter, reset } = filterSlice.actions
 
 export default filterSlice.reducer

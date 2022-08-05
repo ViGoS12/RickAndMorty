@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import styles from './Search.module.scss'
 import ClearIcon from '../../assets/svg/clearButton.svg'
 import useDebounce from './../../hooks/useDebounce'
 import { useDispatch, useSelector } from 'react-redux'
-import { setName, setSearchValue } from '../../redux/slices/filterSlice'
+import { setName, setSearchValue } from '../../redux/slices/searchSlice'
 import { RootState } from '../../redux/store'
 
 const Search: React.FC = () => {
   const dispatch = useDispatch()
-  const { searchValue } = useSelector((state: RootState) => state.filter)
+  const { searchValue } = useSelector((state: RootState) => state.search)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const debouncedValue = useDebounce<string>(searchValue, 500)

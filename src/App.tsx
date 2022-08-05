@@ -15,11 +15,7 @@ import ReactLoading from 'react-loading'
 
 import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
-import {
-  fetchCharacters,
-  setCharacter,
-  setCharacters,
-} from './redux/slices/charactersSlice'
+import { fetchCharacters, setCharacter } from './redux/slices/charactersSlice'
 import NoData from './pages/NoData'
 
 function App() {
@@ -28,7 +24,8 @@ function App() {
     (state: RootState) => state.characters
   )
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
-  const { name } = useSelector((state: RootState) => state.filter)
+  const { gender, species } = useSelector((state: RootState) => state.filter)
+  const { name } = useSelector((state: RootState) => state.search)
 
   const [modalActive, setModalActive] = useState(false)
 
@@ -41,10 +38,8 @@ function App() {
     dispatch(setCharacter(id))
   }
 
-  console.log(loadingStatus)
-
   const getCharacters = async () => {
-    dispatch(fetchCharacters({ page, name, status }))
+    dispatch(fetchCharacters({ page, name, status, gender, species }))
 
     // setTotalPage(data.info.pages)
   }
@@ -60,7 +55,7 @@ function App() {
 
   useEffect(() => {
     getCharacters()
-  }, [name, status])
+  }, [name, status, gender, species])
 
   return (
     <div className='app'>
