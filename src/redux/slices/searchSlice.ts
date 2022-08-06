@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ISearchState {
-  name: string
-  searchValue: string
+  [key: string]: string
 }
 
 const initialState: ISearchState = {
   name: '',
   searchValue: '',
+  type: '',
+  TypeValue: '',
 }
 
 export const filterSlice = createSlice({
@@ -19,6 +20,13 @@ export const filterSlice = createSlice({
     },
     setSearchValue(state: ISearchState, action: PayloadAction<string>) {
       state.searchValue = action.payload
+    },
+
+    setWhatDoISearch(
+      state: ISearchState,
+      action: PayloadAction<{ whatDoISearch: string; value: string }>
+    ) {
+      state[action.payload.whatDoISearch] = action.payload.value
     },
   },
 })
