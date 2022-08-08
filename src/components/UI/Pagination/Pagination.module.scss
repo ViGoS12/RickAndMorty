@@ -1,0 +1,33 @@
+@import '../../../scss/variables.scss';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+  }
+
+  &__item {
+    border-radius: 1rem;
+
+    border: 1px solid $personCard;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &__link {
+    padding: 1rem;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &__active {
+    background-color: $gray;
+  }
+}

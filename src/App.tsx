@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
 import { fetchCharacters, setCharacter } from './redux/slices/charactersSlice'
 import NoData from './pages/NoData'
+import Pagination from './components/UI/Pagination'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -38,8 +39,19 @@ function App() {
     dispatch(setCharacter(id))
   }
 
+  console.log(characters)
+
   const getCharacters = async () => {
-    dispatch(fetchCharacters({ page, name, status, gender, species, type }))
+    dispatch(
+      fetchCharacters({
+        page,
+        name,
+        status,
+        gender,
+        species,
+        type,
+      })
+    )
 
     // setTotalPage(data.info.pages)
   }
@@ -62,20 +74,12 @@ function App() {
       <div className='app__container'>
         <Header />
         <Filter />
-        {/* {isLoading ? (
-          <div className='app__loading'>
-            <ReactLoading
-              type='bubbles'
-              color='white'
-              height={'5%'}
-              width={'5%'}
-            />
-          </div>
-        ) : ( */}
+
         {loadingStatus === 'error' ? (
           <NoData />
         ) : (
           <>
+            <Pagination totalPage={totalPage} />
             <div className='app__content'>
               {loadingStatus === 'loading'
                 ? [...new Array(9)].map((_, i) => <Skeleton key={i} />)
@@ -87,7 +91,7 @@ function App() {
             </div>
           </>
         )}
-        {/* )} */}
+
         {page < totalPage && (
           <div className='app__endless_scroller' ref={lastElement}>
             Show more
