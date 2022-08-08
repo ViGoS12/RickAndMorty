@@ -20,6 +20,7 @@ const Filter: React.FC = () => {
 
   const resetFilters = () => {
     dispatch(reset())
+    dispatch(setSearchTypeValue(''))
   }
   const onChange = (filter: string, value: string) => {
     dispatch(setFilter({ filter, value }))
