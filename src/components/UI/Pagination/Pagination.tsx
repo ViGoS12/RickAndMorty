@@ -4,12 +4,13 @@ import ReactPaginate from 'react-paginate'
 import styles from './Pagination.module.scss'
 
 interface IPaginationProps {
+  onChange: (page: number) => void
   totalPage: number
 }
 
-const Pagination: React.FC<IPaginationProps> = ({ totalPage }) => {
+const Pagination: React.FC<IPaginationProps> = ({ onChange, totalPage }) => {
   const handlePageClick = (data: { selected: number }) => {
-    console.log(data.selected + 1)
+    onChange(data.selected + 1)
   }
 
   return (

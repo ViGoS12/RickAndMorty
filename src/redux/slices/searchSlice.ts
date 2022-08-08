@@ -27,13 +27,6 @@ export const filterSlice = createSlice({
     setSearchTypeValue(state: ISearchState, action: PayloadAction<string>) {
       state.searchTypeValue = action.payload
     },
-
-    setWhatDoISearch(
-      state: ISearchState,
-      action: PayloadAction<{ whatDoISearch: string; value: string }>
-    ) {
-      state[action.payload.whatDoISearch] = action.payload.value
-    },
   },
 })
 

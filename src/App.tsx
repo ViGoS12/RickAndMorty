@@ -18,6 +18,7 @@ import { useAppDispatch, RootState } from './redux/store'
 import { fetchCharacters, setCharacter } from './redux/slices/charactersSlice'
 import NoData from './pages/NoData'
 import Pagination from './components/UI/Pagination'
+import { setPage } from './redux/slices/infoSlice'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -27,19 +28,19 @@ function App() {
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
   const { gender, species } = useSelector((state: RootState) => state.filter)
   const { name, type } = useSelector((state: RootState) => state.search)
+  const { page, totalPage } = useSelector((state: RootState) => state.info)
 
   const [modalActive, setModalActive] = useState(false)
 
   const lastElement: React.RefObject<any> = useRef()
 
-  const [page, setPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(42)
-
   const showMore = (id: number) => {
     dispatch(setCharacter(id))
   }
 
-  console.log(characters)
+  const handleChangePage = (page: number) => {
+    dispatch(setPage(page))
+  }
 
   const getCharacters = async () => {
     dispatch(
@@ -67,7 +68,7 @@ function App() {
 
   useEffect(() => {
     getCharacters()
-  }, [name, status, gender, species, type])
+  }, [page, name, status, gender, species, type])
 
   return (
     <div className='app'>
@@ -79,7 +80,7 @@ function App() {
           <NoData />
         ) : (
           <>
-            <Pagination totalPage={totalPage} />
+            <Pagination onChange={handleChangePage} totalPage={totalPage} />
             <div className='app__content'>
               {loadingStatus === 'loading'
                 ? [...new Array(9)].map((_, i) => <Skeleton key={i} />)
