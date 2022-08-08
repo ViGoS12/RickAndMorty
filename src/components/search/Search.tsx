@@ -5,6 +5,7 @@ import useDebounce from './../../hooks/useDebounce'
 
 interface ISearchProps {
   searchValue: string
+  placeholder: string
   clearFunc: () => void
   changeSearch: () => void
   onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -12,6 +13,7 @@ interface ISearchProps {
 
 const Search: React.FC<ISearchProps> = ({
   searchValue,
+  placeholder,
   clearFunc,
   changeSearch,
   onChangeInput,
@@ -36,7 +38,7 @@ const Search: React.FC<ISearchProps> = ({
           value={searchValue}
           onChange={onChangeInput}
           type='text'
-          placeholder='Name search...'
+          placeholder={placeholder}
           className={styles.search__input}
         />
 

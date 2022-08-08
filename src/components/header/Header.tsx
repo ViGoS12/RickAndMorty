@@ -25,6 +25,7 @@ const Header: React.FC = () => {
     <div className={styles.header}>
       <img className={styles.header__logo} src={Logo} alt='' />
       <Search
+        placeholder='Name search...'
         searchValue={searchNameValue}
         clearFunc={onClickClear}
         changeSearch={changeName}

@@ -74,6 +74,7 @@ const Filter: React.FC = () => {
         Type:
         <Search
           searchValue={searchTypeValue}
+          placeholder='Type search...'
           clearFunc={onClickClear}
           changeSearch={changeType}
           onChangeInput={onChangeInput}
