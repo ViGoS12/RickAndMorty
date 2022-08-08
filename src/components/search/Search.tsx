@@ -2,28 +2,30 @@ import { useEffect, useRef } from 'react'
 import styles from './Search.module.scss'
 import ClearIcon from '../../assets/svg/clearButton.svg'
 import useDebounce from './../../hooks/useDebounce'
-import { useDispatch, useSelector } from 'react-redux'
-import { setName, setSearchValue } from '../../redux/slices/searchSlice'
-import { RootState } from '../../redux/store'
 
-const Search: React.FC = () => {
-  const dispatch = useDispatch()
-  const { searchValue } = useSelector((state: RootState) => state.search)
+interface ISearchProps {
+  searchValue: string
+  clearFunc: () => void
+  changeSearch: () => void
+  onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
 
+const Search: React.FC<ISearchProps> = ({
+  searchValue,
+  clearFunc,
+  changeSearch,
+  onChangeInput,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const debouncedValue = useDebounce<string>(searchValue, 500)
 
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchValue(event.target.value))
-  }
-
   const onClickClear = () => {
-    dispatch(setSearchValue(''))
+    clearFunc()
     inputRef.current?.focus()
   }
 
   useEffect(() => {
-    dispatch(setName(searchValue))
+    changeSearch()
   }, [debouncedValue])
 
   return (

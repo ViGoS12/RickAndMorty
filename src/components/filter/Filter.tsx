@@ -9,18 +9,32 @@ import MySelect from './../UI/Select/'
 import { LIFESTATUS, GENDER, SPECIES } from '../../constants'
 import { RootState } from '../../redux/store'
 import Search from '../search'
+import { setSearchTypeValue, setType } from '../../redux/slices/searchSlice'
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch()
   const { lifeStatus, gender, species } = useSelector(
     (state: RootState) => state.filter
   )
+  const { searchTypeValue } = useSelector((state: RootState) => state.search)
 
   const resetFilters = () => {
     dispatch(reset())
   }
   const onChange = (filter: string, value: string) => {
     dispatch(setFilter({ filter, value }))
+  }
+
+  const onClickClear = () => {
+    dispatch(setSearchTypeValue(''))
+  }
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchTypeValue(event.target.value))
+  }
+
+  const changeType = () => {
+    dispatch(setType(searchTypeValue))
   }
 
   return (
@@ -57,7 +71,12 @@ const Filter: React.FC = () => {
           onChange={onChange}
         />
         Type:
-        <Search />
+        <Search
+          searchValue={searchTypeValue}
+          clearFunc={onClickClear}
+          changeSearch={changeType}
+          onChangeInput={onChangeInput}
+        />
       </div>
     </div>
   )
