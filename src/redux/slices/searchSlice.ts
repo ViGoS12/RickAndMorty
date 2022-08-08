@@ -6,9 +6,9 @@ interface ISearchState {
 
 const initialState: ISearchState = {
   name: '',
-  searchValue: '',
+  searchNameValue: '',
   type: '',
-  TypeValue: '',
+  searchTypeValue: '',
 }
 
 export const filterSlice = createSlice({
@@ -18,8 +18,14 @@ export const filterSlice = createSlice({
     setName(state: ISearchState, action: PayloadAction<string>) {
       state.name = action.payload
     },
-    setSearchValue(state: ISearchState, action: PayloadAction<string>) {
-      state.searchValue = action.payload
+    setSearchNameValue(state: ISearchState, action: PayloadAction<string>) {
+      state.searchNameValue = action.payload
+    },
+    setType(state: ISearchState, action: PayloadAction<string>) {
+      state.type = action.payload
+    },
+    setSearchTypeValue(state: ISearchState, action: PayloadAction<string>) {
+      state.searchTypeValue = action.payload
     },
 
     setWhatDoISearch(
@@ -31,6 +37,7 @@ export const filterSlice = createSlice({
   },
 })
 
-export const { setName, setSearchValue } = filterSlice.actions
+export const { setName, setSearchNameValue, setType, setSearchTypeValue } =
+  filterSlice.actions
 
 export default filterSlice.reducer

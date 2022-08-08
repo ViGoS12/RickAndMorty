@@ -25,7 +25,7 @@ function App() {
   )
   const status = useSelector((state: RootState) => state.filter.lifeStatus)
   const { gender, species } = useSelector((state: RootState) => state.filter)
-  const { name } = useSelector((state: RootState) => state.search)
+  const { name, type } = useSelector((state: RootState) => state.search)
 
   const [modalActive, setModalActive] = useState(false)
 
@@ -39,7 +39,7 @@ function App() {
   }
 
   const getCharacters = async () => {
-    dispatch(fetchCharacters({ page, name, status, gender, species }))
+    dispatch(fetchCharacters({ page, name, status, gender, species, type }))
 
     // setTotalPage(data.info.pages)
   }
@@ -55,7 +55,7 @@ function App() {
 
   useEffect(() => {
     getCharacters()
-  }, [name, status, gender, species])
+  }, [name, status, gender, species, type])
 
   return (
     <div className='app'>

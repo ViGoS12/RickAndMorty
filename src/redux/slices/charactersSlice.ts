@@ -35,8 +35,7 @@ const initialState: ICharacterState = {
 export const fetchCharacters = createAsyncThunk<Character[], Filter>(
   'character/fetchCharactersStatus',
   async (params) => {
-    const { page, name, status, species, gender } = params
-    // const { page, name, status, species, type, gender } = params
+    const { page, name, status, species, type, gender } = params
 
     const { data } = await axios.get(
       `https://rickandmortyapi.com/api/character`,
@@ -46,7 +45,7 @@ export const fetchCharacters = createAsyncThunk<Character[], Filter>(
           name,
           status,
           species,
-          // type,
+          type,
           gender,
         },
       }
