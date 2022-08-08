@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { fetchCharacters } from './charactersSlice'
 
 interface IInfoState {
   page: number
@@ -20,6 +21,17 @@ export const infoSlice = createSlice({
     setTotalPage(state: IInfoState, action: PayloadAction<number>) {
       state.totalPage = action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCharacters.pending, (state) => {
+      state.totalPage = 1
+    })
+    builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+      state.totalPage = action.payload.info.pages
+    })
+    builder.addCase(fetchCharacters.rejected, (state, action) => {
+      state.totalPage = 1
+    })
   },
 })
 

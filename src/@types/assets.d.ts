@@ -44,3 +44,10 @@ type IOption = {
   value: string
   label: string
 }
+
+type Info = {
+  count: number
+  pages: number
+  next: string
+  prev: string
+}

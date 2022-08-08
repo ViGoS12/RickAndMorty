@@ -66,6 +66,7 @@ function App() {
   //   }
   // )
 
+  console.log(characters)
   useEffect(() => {
     getCharacters()
   }, [page, name, status, gender, species, type])

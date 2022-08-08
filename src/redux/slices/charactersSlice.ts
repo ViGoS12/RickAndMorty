@@ -7,6 +7,11 @@ interface ICharacterState {
   loadingStatus: 'loading' | 'success' | 'error'
 }
 
+interface IRequest {
+  results: Character[]
+  info: Info
+}
+
 const initialState: ICharacterState = {
   characters: [],
   character: {
@@ -32,7 +37,7 @@ const initialState: ICharacterState = {
   loadingStatus: 'loading',
 }
 
-export const fetchCharacters = createAsyncThunk<Character[], Filter>(
+export const fetchCharacters = createAsyncThunk<IRequest, Filter>(
   'character/fetchCharactersStatus',
   async (params) => {
     const { page, name, status, species, type, gender } = params
@@ -51,8 +56,7 @@ export const fetchCharacters = createAsyncThunk<Character[], Filter>(
       }
     )
 
-    const { results } = data
-    return results
+    return data
   }
 )
 
@@ -80,7 +84,7 @@ export const charactersSlice = createSlice({
     })
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.loadingStatus = 'success'
-      state.characters = action.payload
+      state.characters = action.payload.results
     })
     builder.addCase(fetchCharacters.rejected, (state, action) => {
       state.loadingStatus = 'error'
