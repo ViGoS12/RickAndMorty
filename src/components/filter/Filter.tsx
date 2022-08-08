@@ -10,6 +10,7 @@ import { LIFESTATUS, GENDER, SPECIES } from '../../constants'
 import { RootState } from '../../redux/store'
 import Search from '../search'
 import { setSearchTypeValue, setType } from '../../redux/slices/searchSlice'
+import { setPage } from '../../redux/slices/infoSlice'
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const Filter: React.FC = () => {
   const resetFilters = () => {
     dispatch(reset())
     dispatch(setSearchTypeValue(''))
+    dispatch(setPage(1))
   }
   const onChange = (filter: string, value: string) => {
     dispatch(setFilter({ filter, value }))
