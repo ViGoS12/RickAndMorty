@@ -3,6 +3,7 @@ import characters from './slices/charactersSlice'
 import filter from './slices/filterSlice'
 import search from './slices/searchSlice'
 import info from './slices/infoSlice'
+import episodes from './slices/episodesInfoSlice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     filter,
     search,
     info,
+    episodes,
   },
 })
 

@@ -26,7 +26,6 @@
   padding: 1.5rem;
   border-radius: 1rem;
   background-color: $personCard;
-
   transform: scale(0.5);
   transition: 0.3s all;
 
@@ -40,10 +39,18 @@
   }
 
   &__img {
+    width: 20rem;
+    height: 20rem;
     border-radius: 1rem;
+
+    @media (max-width: 900px) {
+      width: 15rem;
+      height: 15rem;
+    }
+
     @media (max-width: 400px) {
-      width: 13rem;
-      height: 13rem;
+      width: 10rem;
+      height: 10rem;
     }
   }
 
@@ -56,5 +63,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    @media (max-width: 650px) {
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 }

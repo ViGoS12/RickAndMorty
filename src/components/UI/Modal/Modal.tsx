@@ -1,5 +1,6 @@
 import styles from './Modal.module.scss'
 import classNames from 'classnames'
+import Episodes from './../../episodes/'
 
 interface IModalProps {
   active: Boolean
@@ -56,6 +57,10 @@ const Modal: React.FC<IModalProps> = ({
               {pickedCharacter.origin.name === pickedCharacter.location.name
                 ? ' In the same place'
                 : pickedCharacter.location.name}
+            </li>
+            <li className={styles.content__item}>
+              <div>Episodes:</div>
+              <Episodes episodes={pickedCharacter.episode} />
             </li>
           </ul>
         </div>

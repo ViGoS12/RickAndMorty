@@ -51,3 +51,13 @@ type Info = {
   next: string
   prev: string
 }
+
+type ResultsEpisodes = {
+  id: number
+  name: string
+  air_date: string
+  episode: string
+  characters: [string]
+  url: string
+  created: string
+}

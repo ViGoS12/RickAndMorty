@@ -5,7 +5,7 @@ import './scss/app.scss'
 import CharacterCard from './components/characterCard'
 import Skeleton from './components/characterCard/Skeleton'
 import Modal from './components/UI/Modal'
-import Filter from './components/filter/index'
+import Filter from './components/filter/'
 import Pagination from './components/UI/Pagination'
 
 import { useEffect, useState } from 'react'
@@ -16,6 +16,7 @@ import { fetchCharacters, setCharacter } from './redux/slices/charactersSlice'
 import { setPage } from './redux/slices/infoSlice'
 
 import NoData from './pages/NoData'
+import { fetchEpisodes } from './redux/slices/episodesInfoSlice'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -49,6 +50,15 @@ function App() {
       })
     )
   }
+  const getEpisodes = async () => {
+    dispatch(fetchEpisodes())
+  }
+
+  useEffect(() => {
+    getEpisodes()
+  }, [])
+
+  console.log(character)
 
   useEffect(() => {
     getCharacters()

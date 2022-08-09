@@ -1,9 +1,13 @@
 import styles from './Header.module.scss'
+
 import Logo from '../../assets/svg/logo.svg'
+
 import Search from './../search/'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { setName, setSearchNameValue } from '../../redux/slices/searchSlice'
 import { RootState } from '../../redux/store'
+
+import { setName, setSearchNameValue } from '../../redux/slices/searchSlice'
 
 const Header: React.FC = () => {
   const dispatch = useDispatch()

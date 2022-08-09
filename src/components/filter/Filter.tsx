@@ -2,14 +2,16 @@ import styles from './Filter.module.scss'
 
 import ResetIcon from '../../assets/svg/resetFilter.svg'
 
+import Search from '../search'
+import MySelect from './../UI/Select/'
+
+import { LIFESTATUS, GENDER, SPECIES } from '../../constants'
+
+import { RootState } from '../../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { reset, setFilter } from '../../redux/slices/filterSlice'
-import MySelect from './../UI/Select/'
-import { LIFESTATUS, GENDER, SPECIES } from '../../constants'
-import { RootState } from '../../redux/store'
-import Search from '../search'
 import { setSearchTypeValue, setType } from '../../redux/slices/searchSlice'
+import { reset, setFilter } from '../../redux/slices/filterSlice'
 import { setPage } from '../../redux/slices/infoSlice'
 
 const Filter: React.FC = () => {
