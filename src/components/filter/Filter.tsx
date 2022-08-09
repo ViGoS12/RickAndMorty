@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSearchTypeValue, setType } from '../../redux/slices/searchSlice'
 import { reset, setFilter } from '../../redux/slices/filterSlice'
 import { setPage } from '../../redux/slices/infoSlice'
+import { memo, useCallback } from 'react'
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch()
@@ -21,23 +22,26 @@ const Filter: React.FC = () => {
   )
   const { searchTypeValue } = useSelector((state: RootState) => state.search)
 
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     dispatch(reset())
     dispatch(setSearchTypeValue(''))
     dispatch(setPage(1))
-  }
-  const onChange = (filter: string, value: string) => {
+  }, [])
+  const onChange = useCallback((filter: string, value: string) => {
     dispatch(setPage(1))
     dispatch(setFilter({ filter, value }))
-  }
+  }, [])
 
-  const onClickClear = () => {
+  const onClickClear = useCallback(() => {
     dispatch(setSearchTypeValue(''))
-  }
+  }, [])
 
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchTypeValue(event.target.value))
-  }
+  const onChangeInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setSearchTypeValue(event.target.value))
+    },
+    []
+  )
 
   const changeType = () => {
     dispatch(setType(searchTypeValue))
@@ -97,4 +101,4 @@ const Filter: React.FC = () => {
   )
 }
 
-export default Filter
+export default memo(Filter)

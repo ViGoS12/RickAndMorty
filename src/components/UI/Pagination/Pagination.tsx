@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ReactPaginate from 'react-paginate'
 
 import styles from './Pagination.module.scss'
@@ -39,4 +39,4 @@ const Pagination: React.FC<IPaginationProps> = ({ onChange, totalPage }) => {
   )
 }
 
-export default Pagination
+export default memo(Pagination)

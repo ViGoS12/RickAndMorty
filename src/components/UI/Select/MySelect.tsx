@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react'
 import Select, { SingleValue } from 'react-select'
 
 import './select.scss'
@@ -15,9 +16,9 @@ const MySelect: React.FC<IMySelectProps> = ({
   filter,
   onChange,
 }) => {
-  const handleChange = (newValue: SingleValue<any>) => {
+  const handleChange = useCallback((newValue: SingleValue<any>) => {
     onChange(filter, newValue.value)
-  }
+  }, [])
 
   const getValue = () => {
     return value ? options.find((v) => v.value === value) : null
@@ -35,4 +36,4 @@ const MySelect: React.FC<IMySelectProps> = ({
   )
 }
 
-export default MySelect
+export default memo(MySelect)

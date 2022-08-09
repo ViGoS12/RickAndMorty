@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { memo, useCallback, useEffect, useRef } from 'react'
 import styles from './Search.module.scss'
 import ClearIcon from '../../assets/svg/clearButton.svg'
 import useDebounce from './../../hooks/useDebounce'
@@ -21,10 +21,10 @@ const Search: React.FC<ISearchProps> = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const debouncedValue = useDebounce<string>(searchValue, 500)
 
-  const onClickClear = () => {
+  const onClickClear = useCallback(() => {
     clearFunc()
     inputRef.current?.focus()
-  }
+  }, [])
 
   useEffect(() => {
     changeSearch()
@@ -55,4 +55,4 @@ const Search: React.FC<ISearchProps> = ({
   )
 }
 
-export default Search
+export default memo(Search)

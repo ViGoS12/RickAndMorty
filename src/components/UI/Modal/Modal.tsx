@@ -1,6 +1,7 @@
 import styles from './Modal.module.scss'
 import classNames from 'classnames'
 import Episodes from './../../episodes/'
+import { memo } from 'react'
 
 interface IModalProps {
   active: Boolean
@@ -69,4 +70,4 @@ const Modal: React.FC<IModalProps> = ({
   )
 }
 
-export default Modal
+export default memo(Modal)

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 
 import { setName, setSearchNameValue } from '../../redux/slices/searchSlice'
+import { memo } from 'react'
 
 const Header: React.FC = () => {
   const dispatch = useDispatch()
@@ -40,4 +41,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header
+export default memo(Header)

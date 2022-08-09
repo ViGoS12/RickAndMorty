@@ -8,7 +8,7 @@ import Modal from './components/UI/Modal'
 import Filter from './components/filter/'
 import Pagination from './components/UI/Pagination'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
@@ -30,13 +30,13 @@ function App() {
 
   const [modalActive, setModalActive] = useState(false)
 
-  const showMore = (id: number) => {
+  const showMore = useCallback((id: number) => {
     dispatch(setCharacter(id))
-  }
+  }, [])
 
-  const handleChangePage = (page: number) => {
+  const handleChangePage = useCallback((page: number) => {
     dispatch(setPage(page))
-  }
+  }, [])
 
   const getCharacters = async () => {
     dispatch(
@@ -57,8 +57,6 @@ function App() {
   useEffect(() => {
     getEpisodes()
   }, [])
-
-  console.log(character)
 
   useEffect(() => {
     getCharacters()
