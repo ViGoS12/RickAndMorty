@@ -23,9 +23,7 @@ export const infoSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCharacters.pending, (state) => {
-      state.totalPage = 1
-    })
+    // builder.addCase(fetchCharacters.pending, (state) => {})
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.totalPage = action.payload.info.pages
     })
