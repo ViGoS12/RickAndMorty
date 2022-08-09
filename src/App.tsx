@@ -2,23 +2,20 @@ import Header from './components/header'
 
 import './scss/app.scss'
 
-import { useEffect, useRef, useState } from 'react'
-
 import CharacterCard from './components/characterCard'
 import Skeleton from './components/characterCard/Skeleton'
 import Modal from './components/UI/Modal'
 import Filter from './components/filter/index'
+import Pagination from './components/UI/Pagination'
 
-import useObserver from './hooks/useObserver'
-
-import ReactLoading from 'react-loading'
+import { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { useAppDispatch, RootState } from './redux/store'
 import { fetchCharacters, setCharacter } from './redux/slices/charactersSlice'
-import NoData from './pages/NoData'
-import Pagination from './components/UI/Pagination'
 import { setPage } from './redux/slices/infoSlice'
+
+import NoData from './pages/NoData'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -31,8 +28,6 @@ function App() {
   const { page, totalPage } = useSelector((state: RootState) => state.info)
 
   const [modalActive, setModalActive] = useState(false)
-
-  const lastElement: React.RefObject<any> = useRef()
 
   const showMore = (id: number) => {
     dispatch(setCharacter(id))
@@ -53,20 +48,8 @@ function App() {
         type,
       })
     )
-
-    // setTotalPage(data.info.pages)
   }
 
-  // useObserver(
-  //   lastElement,
-  //   page < totalPage,
-  //   loadingStatus === 'success' ? false : true,
-  //   () => {
-  //     setPage(page + 1)
-  //   }
-  // )
-
-  console.log(characters)
   useEffect(() => {
     getCharacters()
   }, [page, name, status, gender, species, type])
@@ -76,7 +59,6 @@ function App() {
       <div className='app__container'>
         <Header />
         <Filter />
-
         {loadingStatus === 'error' ? (
           <NoData />
         ) : (
@@ -92,18 +74,6 @@ function App() {
                   ))}
             </div>
           </>
-        )}
-
-        {page < totalPage && (
-          <div className='app__endless_scroller' ref={lastElement}>
-            Show more
-            <ReactLoading
-              type='cylon'
-              color='white'
-              height='30px'
-              width='30px'
-            />
-          </div>
         )}
 
         {character && (

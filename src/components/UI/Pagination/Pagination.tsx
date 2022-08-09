@@ -9,6 +9,8 @@ interface IPaginationProps {
 }
 
 const Pagination: React.FC<IPaginationProps> = ({ onChange, totalPage }) => {
+  const mobile = window.innerWidth <= 768 ? true : false
+
   const handlePageClick = (data: { selected: number }) => {
     onChange(data.selected + 1)
   }
@@ -20,8 +22,8 @@ const Pagination: React.FC<IPaginationProps> = ({ onChange, totalPage }) => {
         previousLabel={'<'}
         nextLabel={'>'}
         onPageChange={handlePageClick}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={2}
+        marginPagesDisplayed={mobile ? 1 : 2}
+        pageRangeDisplayed={mobile ? 1 : 2}
         containerClassName={styles.pagination__container}
         pageClassName={styles.pagination__item}
         pageLinkClassName={styles.pagination__link}

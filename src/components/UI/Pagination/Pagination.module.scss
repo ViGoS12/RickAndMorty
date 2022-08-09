@@ -8,6 +8,10 @@
     display: flex;
     font-size: 2rem;
     justify-content: center;
+    flex-wrap: wrap;
+    @media (max-width: 400px) {
+      font-size: 1.5rem;
+    }
   }
 
   &__item {
@@ -22,6 +26,11 @@
 
   &__link {
     padding: 1rem;
+
+    @media (max-width: 400px) {
+      padding: 0.5rem;
+    }
+
     &:hover {
       opacity: 0.5;
     }

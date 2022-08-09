@@ -6,6 +6,10 @@
   border-radius: 1rem;
   cursor: pointer;
 
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
+
   &:hover {
     transition: 0.5s;
     transform: scale(1.05);
@@ -19,6 +23,13 @@
     height: 13rem;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
+
+    @media (max-width: 400px) {
+      width: auto;
+      height: auto;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 1rem;
+    }
   }
 
   &__rightside {
@@ -26,12 +37,19 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 1rem;
+    @media (max-width: 400px) {
+      gap: 1rem;
+    }
   }
 
   &__property {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    @media (max-width: 400px) {
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 
   &__title {
@@ -44,7 +62,6 @@
   &__subtitle {
     display: flex;
     gap: 0.5rem;
-
     align-items: center;
   }
 
@@ -55,5 +72,10 @@
   }
 
   &__btn {
+    @media (max-width: 400px) {
+      display: flex;
+      justify-content: end;
+      font-size: 0.8rem;
+    }
   }
 }
