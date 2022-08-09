@@ -35,13 +35,7 @@ const Header: React.FC = () => {
         changeSearch={changeName}
         onChangeInput={onChangeInput}
       />
-      <ul className={styles.header__list}>
-        <li className={styles.header__item}>feature 1</li>
-        <li className={styles.header__item}>feature 2</li>
-        <li className={styles.header__item}>feature 3</li>
-        <li className={styles.header__item}>feature 4</li>
-        <li className={styles.header__item}>feature 5</li>
-      </ul>
+      <div className={styles.header__title}>Used by the Rick and Morty API</div>
     </div>
   )
 }

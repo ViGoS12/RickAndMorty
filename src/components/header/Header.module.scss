@@ -5,24 +5,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 600px) {
+    gap: 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
 
   &__logo {
     padding-top: 0.1rem;
-    width: 50px;
-    height: 50px;
+    width: 4rem;
+    height: 4rem;
     background-color: white;
     border-radius: 50%;
     border: 3px solid #000;
+
+    order: -2;
   }
 
-  &__list {
-    display: flex;
-    gap: 2rem;
-    align-content: center;
-    flex-wrap: wrap;
-  }
-
-  &__item {
-    font-size: 1.5rem;
+  &__title {
+    font-size: 3rem;
+    color: $personCard;
+    font-family: 'Bellefair', serif;
+    @media (max-width: 600px) {
+      order: -1;
+    }
   }
 }
