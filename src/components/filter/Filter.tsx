@@ -25,6 +25,7 @@ const Filter: React.FC = () => {
     dispatch(setPage(1))
   }
   const onChange = (filter: string, value: string) => {
+    dispatch(setPage(1))
     dispatch(setFilter({ filter, value }))
   }
 
@@ -51,37 +52,45 @@ const Filter: React.FC = () => {
           onClick={resetFilters}
         />
       </div>
-      <div className={styles.filter__content}>
-        Status:
-        <MySelect
-          value={lifeStatus}
-          options={LIFESTATUS}
-          filter='lifeStatus'
-          onChange={onChange}
-        />
-        Gender:
-        <MySelect
-          value={gender}
-          options={GENDER}
-          filter='gender'
-          onChange={onChange}
-        />
-        Species:
-        <MySelect
-          value={species}
-          options={SPECIES}
-          filter='species'
-          onChange={onChange}
-        />
-        Type:
-        <Search
-          searchValue={searchTypeValue}
-          placeholder='Type search...'
-          clearFunc={onClickClear}
-          changeSearch={changeType}
-          onChangeInput={onChangeInput}
-        />
-      </div>
+      <ul className={styles.filter__content}>
+        <li className={styles.filter__item}>
+          Status:
+          <MySelect
+            value={lifeStatus}
+            options={LIFESTATUS}
+            filter='lifeStatus'
+            onChange={onChange}
+          />
+        </li>
+        <li className={styles.filter__item}>
+          Gender:
+          <MySelect
+            value={gender}
+            options={GENDER}
+            filter='gender'
+            onChange={onChange}
+          />
+        </li>
+        <li className={styles.filter__item}>
+          Species:
+          <MySelect
+            value={species}
+            options={SPECIES}
+            filter='species'
+            onChange={onChange}
+          />
+        </li>
+        <li className={styles.filter__item}>
+          Type:
+          <Search
+            searchValue={searchTypeValue}
+            placeholder='Type search...'
+            clearFunc={onClickClear}
+            changeSearch={changeType}
+            onChangeInput={onChangeInput}
+          />
+        </li>
+      </ul>
     </div>
   )
 }
